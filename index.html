@@ -1,11 +1,127 @@
-<!DOCTYPE html>
-<html lang="en">
+!DOCTYPE html>
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Página de Ejemplo </title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 20px; line-height: 1.6; background: #f4f4f4; color: #333; }
+        header, nav, main, section, article, footer { background: #fff; margin-bottom: 15px; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        nav a { margin-right: 15px; text-decoration: none; color: #0066cc; font-weight: bold; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #0066cc; color: white; }
+        form div { margin-bottom: 10px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        input, select, textarea { width: 100%; padding: 8px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px; }
+        button { background: #0066cc; color: white; border: none; padding: 10px 15px; cursor: pointer; border-radius: 4px; }
+        button:hover { background: #004499; }
+    </style>
 </head>
 <body>
-    <h1>Hola mundo</h1>
+
+    <!-- Encabezado y Navegación -->
+    <header>
+        <h1>Mi Sitio Web Completo</h1>
+        <p>Un ejemplo que aplica etiquetas estructurales, texto, tablas y formularios.</p>
+        <nav>
+            <a href="#inicio">Inicio</a>
+            <a href="#contenido">Contenido</a>
+            <a href="#multimedia">Multimedia</a>
+            <a href="#contacto">Contacto</a>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Sección de Inicio / Artículo -->
+        <section id="inicio">
+            <h2>Sección de Introducción</h2>
+            <article>
+                <h3>¿Qué es HTML5?</h3>
+                <p>Es la versión más reciente del lenguaje HTML. Permite crear páginas web con etiquetas semánticas claras y soporte multimedia nativo.</p>
+                <p>Puedes visitar la <a href="https://developer.mozilla.org/es/docs/Learn_web_development/Core/Structuring_content/Headings_and_paragraphs" target="_blank">Documentación oficial de MDN</a> para aprender más sobre texto y estructura.</p>
+            </article>
+        </section>
+
+        <!-- Sección de Contenido y Listas / Tabla -->
+        <section id="contenido">
+            <h2>Listas y Tablas</h2>
+            <p>Elementos clave para organizar la información:</p>
+            
+            <ul>
+                <li>Primer elemento de una lista desordenada.</li>
+                <li>Segundo elemento con un <strong>texto en negrita</strong>.</li>
+            </ul>
+
+            <h3>Tabla de Datos</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Mes</th>
+                        <th>Concepto</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Enero</td>
+                        <td>Diseño Web</td>
+                        <td>Completado</td>
+                    </tr>
+                    <tr>
+                        <td>Febrero</td>
+                        <td>Desarrollo</td>
+                        <td>En proceso</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Sección Multimedia -->
+        <section id="multimedia">
+            <h2>Multimedia (Imagen y Video)</h2>
+            <p>Ejemplo de inserción de una imagen:</p>
+            <img src="https://placeholder.com" alt="Imagen de ejemplo" style="max-width:100%; height:auto; border-radius: 4px;">
+            
+            <h3 style="margin-top: 20px;">Audio nativo</h3>
+            <audio controls style="width: 100%;">
+                <source src="audio-ejemplo.mp3" type="audio/mpeg">
+                Tu navegador no soporta el elemento de audio.
+            </audio>
+        </section>
+
+        <!-- Sección de Formulario -->
+        <section id="contacto">
+            <h2>Formulario de Contacto</h2>
+            <form action="#" method="POST">
+                <div>
+                    <label for="nombre">Nombre:</label>
+                    <input type="text" id="nombre" name="nombre" required placeholder="Escribe tu nombre">
+                </div>
+                <div>
+                    <label for="email">Correo Electrónico:</label>
+                    <input type="email" id="email" name="email" required placeholder="correo@ejemplo.com">
+                </div>
+                <div>
+                    <label for="opcion">Elige una opción:</label>
+                    <select id="opcion" name="opcion">
+                        <option value="duda">Tengo una duda</option>
+                        <option value="sugerencia">Sugerencia</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="mensaje">Mensaje:</label>
+                    <textarea id="mensaje" name="mensaje" rows="4" placeholder="Escribe tu mensaje aquí..."></textarea>
+                </div>
+                <button type="submit">Enviar formulario</button>
+            </form>
+        </section>
+    </main>
+
+    <!-- Pie de página -->
+    <footer>
+        <p>&copy; 2026 Mi Sitio Web. Todos los derechos reservados.</p>
+    </footer>
+
 </body>
 </html>
