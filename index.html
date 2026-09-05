@@ -1,127 +1,1090 @@
-!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página de Ejemplo </title>
-    <style>
-        body { font-family: Arial, sans-serif; margin: 0; padding: 20px; line-height: 1.6; background: #f4f4f4; color: #333; }
-        header, nav, main, section, article, footer { background: #fff; margin-bottom: 15px; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-        nav a { margin-right: 15px; text-decoration: none; color: #0066cc; font-weight: bold; }
-        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
-        th { background-color: #0066cc; color: white; }
-        form div { margin-bottom: 10px; }
-        label { display: block; margin-bottom: 5px; font-weight: bold; }
-        input, select, textarea { width: 100%; padding: 8px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px; }
-        button { background: #0066cc; color: white; border: none; padding: 10px 15px; cursor: pointer; border-radius: 4px; }
-        button:hover { background: #004499; }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Página web moderna y atractiva creada en un solo archivo HTML — integración Nébula Studio + Mi Sitio Web Completo." />
+  <title>Nébula Studio — Mi Sitio Web Completo</title>
+
+  <style>
+    :root {
+      --fondo: #0b1020;
+      --fondo-secundario: #111936;
+      --tarjeta: rgba(255, 255, 255, 0.08);
+      --borde: rgba(255, 255, 255, 0.14);
+      --texto: #f8fafc;
+      --texto-suave: #aab4ca;
+      --primario: #8b5cf6;
+      --secundario: #06b6d4;
+      --verde: #22c55e;
+      --sombra: 0 20px 60px rgba(0, 0, 0, 0.28);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--texto);
+      background:
+        radial-gradient(circle at top left, rgba(139, 92, 246, 0.2), transparent 30%),
+        radial-gradient(circle at 80% 10%, rgba(6, 182, 212, 0.16), transparent 25%),
+        var(--fondo);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input,
+    select,
+    textarea {
+      font: inherit;
+    }
+
+    .contenedor {
+      width: min(1120px, 90%);
+      margin: auto;
+    }
+
+    .barra {
+      position: fixed;
+      z-index: 1000;
+      top: 0;
+      width: 100%;
+      backdrop-filter: blur(18px);
+      background: rgba(11, 16, 32, 0.72);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .barra-interior {
+      min-height: 74px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 25px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.25rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+    }
+
+    .logo-icono {
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      border-radius: 13px;
+      background: linear-gradient(135deg, var(--primario), var(--secundario));
+      box-shadow: 0 0 25px rgba(139, 92, 246, 0.55);
+    }
+
+    .menu {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      color: var(--texto-suave);
+      font-size: 0.88rem;
+      flex-wrap: wrap;
+    }
+
+    .menu a {
+      transition: 0.25s ease;
+    }
+
+    .menu a:hover {
+      color: white;
+    }
+
+    .boton {
+      border: 0;
+      cursor: pointer;
+      color: white;
+      padding: 12px 20px;
+      border-radius: 12px;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--primario), #6366f1);
+      box-shadow: 0 12px 25px rgba(99, 102, 241, 0.25);
+      transition: 0.25s ease;
+    }
+
+    .boton:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 17px 30px rgba(99, 102, 241, 0.4);
+    }
+
+    .boton.secundario {
+      background: transparent;
+      border: 1px solid var(--borde);
+      box-shadow: none;
+    }
+
+    .boton.secundario:hover {
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .menu-movil {
+      display: none;
+      border: 0;
+      background: none;
+      color: white;
+      font-size: 1.6rem;
+      cursor: pointer;
+    }
+
+    .hero {
+      min-height: 820px;
+      padding: 170px 0 100px;
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      align-items: center;
+      gap: 70px;
+    }
+
+    .etiqueta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 13px;
+      margin-bottom: 22px;
+      border: 1px solid rgba(139, 92, 246, 0.35);
+      border-radius: 100px;
+      color: #d8ccff;
+      background: rgba(139, 92, 246, 0.1);
+      font-size: 0.85rem;
+    }
+
+    .punto {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--verde);
+      box-shadow: 0 0 13px var(--verde);
+    }
+
+    h1 {
+      max-width: 680px;
+      font-size: clamp(2.8rem, 6vw, 5.4rem);
+      line-height: 1.02;
+      letter-spacing: -4px;
+      margin-bottom: 25px;
+    }
+
+    .gradiente {
+      background: linear-gradient(90deg, #c4b5fd, #67e8f9);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p {
+      max-width: 570px;
+      color: var(--texto-suave);
+      font-size: 1.15rem;
+      margin-bottom: 32px;
+    }
+
+    .acciones {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .visual {
+      position: relative;
+      min-height: 430px;
+      display: grid;
+      place-items: center;
+    }
+
+    .orbita {
+      position: absolute;
+      width: 360px;
+      height: 360px;
+      border: 1px solid rgba(139, 92, 246, 0.3);
+      border-radius: 50%;
+      animation: girar 18s linear infinite;
+    }
+
+    .orbita::before,
+    .orbita::after {
+      content: "";
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--secundario);
+      box-shadow: 0 0 25px var(--secundario);
+    }
+
+    .orbita::before {
+      top: 20px;
+      left: 40px;
+    }
+
+    .orbita::after {
+      right: 12px;
+      bottom: 55px;
+      background: var(--primario);
+      box-shadow: 0 0 25px var(--primario);
+    }
+
+    @keyframes girar {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .panel {
+      position: relative;
+      z-index: 1;
+      width: min(390px, 100%);
+      padding: 25px;
+      border: 1px solid var(--borde);
+      border-radius: 25px;
+      background: linear-gradient(145deg, rgba(255,255,255,0.14), rgba(255,255,255,0.04));
+      box-shadow: var(--sombra);
+      backdrop-filter: blur(20px);
+      transform: rotate(3deg);
+    }
+
+    .panel-cabecera {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 25px;
+    }
+
+    .circulos {
+      display: flex;
+      gap: 6px;
+    }
+
+    .circulos span {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #fb7185;
+    }
+
+    .circulos span:nth-child(2) {
+      background: #facc15;
+    }
+
+    .circulos span:nth-child(3) {
+      background: #4ade80;
+    }
+
+    .grafico {
+      height: 170px;
+      display: flex;
+      align-items: end;
+      gap: 10px;
+      padding: 20px 10px;
+      border-radius: 18px;
+      background: rgba(0, 0, 0, 0.18);
+    }
+
+    .barra-grafico {
+      flex: 1;
+      border-radius: 8px 8px 3px 3px;
+      background: linear-gradient(var(--secundario), var(--primario));
+      animation: crecer 1.5s ease forwards;
+    }
+
+    @keyframes crecer {
+      from { height: 0; }
+    }
+
+    .dato {
+      margin-top: 20px;
+      display: flex;
+      justify-content: space-between;
+      color: var(--texto-suave);
+    }
+
+    .dato strong {
+      color: white;
+      font-size: 1.25rem;
+    }
+
+    section {
+      padding: 100px 0;
+    }
+
+    .titulo-seccion {
+      max-width: 650px;
+      margin-bottom: 45px;
+    }
+
+    .titulo-seccion h2 {
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      letter-spacing: -1.5px;
+      line-height: 1.1;
+      margin-bottom: 15px;
+    }
+
+    .titulo-seccion p {
+      color: var(--texto-suave);
+    }
+
+    .tarjetas {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .tarjeta {
+      padding: 28px;
+      border: 1px solid var(--borde);
+      border-radius: 20px;
+      background: var(--tarjeta);
+      transition: 0.3s ease;
+    }
+
+    .tarjeta:hover {
+      transform: translateY(-8px);
+      border-color: rgba(139, 92, 246, 0.55);
+      background: rgba(255, 255, 255, 0.11);
+    }
+
+    .icono {
+      width: 50px;
+      height: 50px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 22px;
+      border-radius: 15px;
+      font-size: 1.4rem;
+      background: linear-gradient(135deg, rgba(139, 92, 246, 0.3), rgba(6, 182, 212, 0.22));
+    }
+
+    .tarjeta h3 {
+      margin-bottom: 10px;
+    }
+
+    .tarjeta p {
+      color: var(--texto-suave);
+      font-size: 0.95rem;
+    }
+
+    /* Tabla integrada (de Mi Sitio, adaptada a Nébula dark) */
+    .tabla-contenedor {
+      margin-top: 25px;
+      border: 1px solid var(--borde);
+      border-radius: 16px;
+      overflow: hidden;
+      background: var(--tarjeta);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      border-bottom: 1px solid var(--borde);
+      padding: 12px 14px;
+      text-align: left;
+    }
+
+    th {
+      background: linear-gradient(135deg, var(--primario), #6366f1);
+      color: white;
+      font-weight: 700;
+      font-size: 0.9rem;
+      letter-spacing: 0.3px;
+    }
+
+    td {
+      color: var(--texto-suave);
+      font-size: 0.92rem;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    tr:nth-child(even) td {
+      background: rgba(255,255,255,0.04);
+    }
+
+    /* Lista integrada */
+    .lista-contenido {
+      margin: 18px 0 0 18px;
+      color: var(--texto-suave);
+    }
+
+    .lista-contenido li {
+      margin: 8px 0;
+    }
+
+    .lista-contenido strong {
+      color: white;
+    }
+
+    /* Multimedia */
+    .media-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 20px;
+      align-items: start;
+    }
+
+    .media-card img {
+      width: 100%;
+      height: auto;
+      border-radius: 12px;
+      display: block;
+    }
+
+    .media-card audio {
+      width: 100%;
+      margin-top: 14px;
+    }
+
+    .estadisticas {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+      padding: 30px;
+      border: 1px solid var(--borde);
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .estadistica {
+      text-align: center;
+    }
+
+    .estadistica strong {
+      display: block;
+      font-size: 2.3rem;
+      color: #c4b5fd;
+    }
+
+    .estadistica span {
+      color: var(--texto-suave);
+      font-size: 0.9rem;
+    }
+
+    .precios {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .precio {
+      position: relative;
+    }
+
+    .precio.destacado {
+      border-color: var(--primario);
+      box-shadow: 0 0 35px rgba(139, 92, 246, 0.16);
+    }
+
+    .popular {
+      position: absolute;
+      top: -13px;
+      right: 20px;
+      padding: 5px 11px;
+      border-radius: 100px;
+      color: white;
+      background: var(--primario);
+      font-size: 0.75rem;
+      font-weight: 700;
+    }
+
+    .precio h3 {
+      font-size: 1.3rem;
+    }
+
+    .cantidad {
+      margin: 18px 0;
+      font-size: 2.8rem;
+      font-weight: 800;
+    }
+
+    .cantidad small {
+      color: var(--texto-suave);
+      font-size: 0.9rem;
+      font-weight: 400;
+    }
+
+    .lista {
+      min-height: 145px;
+      margin-bottom: 20px;
+      color: var(--texto-suave);
+      list-style: none;
+    }
+
+    .lista li {
+      margin: 10px 0;
+    }
+
+    .lista li::before {
+      content: "✓";
+      margin-right: 10px;
+      color: var(--verde);
+      font-weight: bold;
+    }
+
+    .contacto {
+      display: grid;
+      grid-template-columns: 0.8fr 1.2fr;
+      gap: 25px;
+      align-items: stretch;
+    }
+
+    .contacto-info,
+    form {
+      padding: 30px;
+      border: 1px solid var(--borde);
+      border-radius: 22px;
+      background: var(--tarjeta);
+    }
+
+    .contacto-info p {
+      color: var(--texto-suave);
+      margin: 15px 0 25px;
+    }
+
+    .contacto-info a {
+      color: #c4b5fd;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .dato-contacto {
+      margin: 16px 0;
+      color: var(--texto-suave);
+    }
+
+    .dato-contacto strong {
+      display: block;
+      color: white;
+      margin-bottom: 3px;
+    }
+
+    .campo {
+      margin-bottom: 16px;
+    }
+
+    .campo label {
+      display: block;
+      margin-bottom: 7px;
+      color: #dbeafe;
+      font-size: 0.9rem;
+    }
+
+    .campo input,
+    .campo select,
+    .campo textarea {
+      width: 100%;
+      padding: 13px 15px;
+      border: 1px solid var(--borde);
+      outline: none;
+      resize: vertical;
+      border-radius: 11px;
+      color: white;
+      background: rgba(0, 0, 0, 0.2);
+      transition: 0.2s ease;
+    }
+
+    .campo input:focus,
+    .campo select:focus,
+    .campo textarea:focus {
+      border-color: var(--secundario);
+      box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.12);
+    }
+
+    .campo select option {
+      color: #111936;
+    }
+
+    .mensaje {
+      display: none;
+      margin-top: 14px;
+      color: #86efac;
+    }
+
+    footer {
+      padding: 30px 0;
+      border-top: 1px solid var(--borde);
+      color: var(--texto-suave);
+      text-align: center;
+    }
+
+    @media (max-width: 960px) {
+      .media-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 800px) {
+      .menu {
+        position: absolute;
+        top: 74px;
+        left: 5%;
+        right: 5%;
+        display: none;
+        flex-direction: column;
+        align-items: stretch;
+        padding: 20px;
+        border: 1px solid var(--borde);
+        border-radius: 15px;
+        background: #111936;
+      }
+
+      .menu.activo {
+        display: flex;
+      }
+
+      .menu-movil {
+        display: block;
+      }
+
+      .hero {
+        grid-template-columns: 1fr;
+        padding-top: 130px;
+      }
+
+      .visual {
+        min-height: 360px;
+      }
+
+      .tarjetas,
+      .precios,
+      .contacto {
+        grid-template-columns: 1fr;
+      }
+
+      .estadisticas {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      h1 {
+        letter-spacing: -2px;
+      }
+    }
+
+    @media (max-width: 450px) {
+      .acciones .boton {
+        width: 100%;
+        text-align: center;
+      }
+
+      .orbita {
+        width: 290px;
+        height: 290px;
+      }
+
+      .estadisticas {
+        padding: 20px 10px;
+      }
+    }
+  </style>
 </head>
+
 <body>
 
-    <!-- Encabezado y Navegación -->
-    <header>
-        <h1>Mi Sitio Web Completo</h1>
-        <p>Un ejemplo que aplica etiquetas estructurales, texto, tablas y formularios.</p>
-        <nav>
-            <a href="#inicio">Inicio</a>
-            <a href="#contenido">Contenido</a>
-            <a href="#multimedia">Multimedia</a>
-            <a href="#contacto">Contacto</a>
-        </nav>
-    </header>
+  <header class="barra">
+    <div class="contenedor barra-interior">
+      <a href="#inicio" class="logo">
+        <span class="logo-icono">✦</span>
+        Nébula
+      </a>
 
-    <main>
-        <!-- Sección de Inicio / Artículo -->
-        <section id="inicio">
-            <h2>Sección de Introducción</h2>
-            <article>
-                <h3>¿Qué es HTML5?</h3>
-                <p>Es la versión más reciente del lenguaje HTML. Permite crear páginas web con etiquetas semánticas claras y soporte multimedia nativo.</p>
-                <p>Puedes visitar la <a href="https://developer.mozilla.org/es/docs/Learn_web_development/Core/Structuring_content/Headings_and_paragraphs" target="_blank">Documentación oficial de MDN</a> para aprender más sobre texto y estructura.</p>
+      <nav class="menu" id="menu">
+        <a href="#inicio">Inicio</a>
+        <a href="#servicios">Servicios</a>
+        <a href="#contenido">Contenido</a>
+        <a href="#multimedia">Multimedia</a>
+        <a href="#nosotros">Nosotros</a>
+        <a href="#precios">Precios</a>
+        <a href="#contacto">Contacto</a>
+        <a href="#contacto" class="boton">Empezar</a>
+      </nav>
+
+      <button class="menu-movil" id="botonMenu" aria-label="Abrir menú">☰</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero contenedor" id="inicio">
+      <div>
+        <span class="etiqueta">
+          <span class="punto"></span>
+          Creatividad digital sin límites — Mi Sitio Web Completo integrado
+        </span>
+
+        <h1>
+          Diseñamos ideas que se convierten en
+          <span class="gradiente">experiencias.</span>
+        </h1>
+
+        <p>
+          Creamos marcas, sitios web y productos digitales memorables
+          para personas y empresas que quieren destacar. Un ejemplo que aplica etiquetas estructurales, texto, tablas y formularios con estilo Nébula.
+        </p>
+
+        <div class="acciones">
+          <a href="#contacto" class="boton">Hablemos de tu proyecto →</a>
+          <a href="#servicios" class="boton secundario">Explorar servicios</a>
+        </div>
+      </div>
+
+      <div class="visual">
+        <div class="orbita"></div>
+
+        <div class="panel">
+          <div class="panel-cabecera">
+            <strong>Resumen del proyecto</strong>
+            <div class="circulos">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+          </div>
+
+          <div class="grafico">
+            <div class="barra-grafico" style="height: 35%"></div>
+            <div class="barra-grafico" style="height: 50%"></div>
+            <div class="barra-grafico" style="height: 42%"></div>
+            <div class="barra-grafico" style="height: 72%"></div>
+            <div class="barra-grafico" style="height: 60%"></div>
+            <div class="barra-grafico" style="height: 90%"></div>
+          </div>
+
+          <div class="dato">
+            <span>Conversión mensual</span>
+            <strong>+84.6%</strong>
+          </div>
+
+          <div class="dato">
+            <span>Usuarios activos</span>
+            <strong>28.4K</strong>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="servicios">
+      <div class="contenedor">
+        <div class="titulo-seccion">
+          <h2>Todo lo que necesitas para crecer.</h2>
+          <p>
+            Combinamos estrategia, diseño y tecnología para crear soluciones
+            bonitas, útiles y preparadas para el futuro.
+          </p>
+        </div>
+
+        <div class="tarjetas">
+          <article class="tarjeta">
+            <div class="icono">✦</div>
+            <h3>Diseño de marca</h3>
+            <p>
+              Identidades visuales con personalidad, coherencia y una
+              presencia imposible de ignorar.
+            </p>
+          </article>
+
+          <article class="tarjeta">
+            <div class="icono">⌘</div>
+            <h3>Diseño web</h3>
+            <p>
+              Páginas rápidas, modernas y adaptadas a cualquier dispositivo
+              para convertir visitas en clientes.
+            </p>
+          </article>
+
+          <article class="tarjeta">
+            <div class="icono">⚡</div>
+            <h3>Desarrollo digital</h3>
+            <p>
+              Construimos experiencias digitales funcionales con tecnologías
+              actuales y código limpio.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Integración: Contenido didáctico de Mi Sitio (Listas y Tabla) -->
+    <section id="contenido">
+      <div class="contenedor">
+        <div class="titulo-seccion">
+          <h2>Listas y Tablas</h2>
+          <p>Elementos clave para organizar la información — contenido preservado de <strong>Mi Sitio Web Completo</strong>, ahora con estilo Nébula.</p>
+        </div>
+
+        <div class="tarjetas" style="grid-template-columns: 1fr 1fr;">
+          <article class="tarjeta">
+            <div class="icono">≡</div>
+            <h3>Sección de Introducción</h3>
+            <article style="margin-top:10px">
+              <h3 style="margin-bottom:10px">¿Qué es HTML5?</h3>
+              <p>Es la versión más reciente del lenguaje HTML. Permite crear páginas web con etiquetas semánticas claras y soporte multimedia nativo.</p>
+              <p style="margin-top:12px">Puedes visitar la <a href="https://developer.mozilla.org/es/docs/Learn_web_development/Core/Structuring_content/Headings_and_paragraphs" target="_blank" style="color:#67e8f9;text-decoration:underline">Documentación oficial de MDN</a> para aprender más sobre texto y estructura.</p>
             </article>
-        </section>
-
-        <!-- Sección de Contenido y Listas / Tabla -->
-        <section id="contenido">
-            <h2>Listas y Tablas</h2>
-            <p>Elementos clave para organizar la información:</p>
-            
-            <ul>
-                <li>Primer elemento de una lista desordenada.</li>
-                <li>Segundo elemento con un <strong>texto en negrita</strong>.</li>
+            <h3 style="margin-top:22px">Listas</h3>
+            <ul class="lista-contenido">
+              <li>Primer elemento de una lista desordenada.</li>
+              <li>Segundo elemento con un <strong>texto en negrita</strong>.</li>
             </ul>
+          </article>
 
+          <article class="tarjeta">
+            <div class="icono">▦</div>
             <h3>Tabla de Datos</h3>
-            <table>
+            <p style="color:var(--texto-suave);font-size:0.92rem;margin-top:8px">Ejemplo preservado sin duplicados, adaptado al tema oscuro.</p>
+            <div class="tabla-contenedor">
+              <table>
                 <thead>
-                    <tr>
-                        <th>Mes</th>
-                        <th>Concepto</th>
-                        <th>Estado</th>
-                    </tr>
+                  <tr>
+                    <th>Mes</th>
+                    <th>Concepto</th>
+                    <th>Estado</th>
+                  </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Enero</td>
-                        <td>Diseño Web</td>
-                        <td>Completado</td>
-                    </tr>
-                    <tr>
-                        <td>Febrero</td>
-                        <td>Desarrollo</td>
-                        <td>En proceso</td>
-                    </tr>
+                  <tr>
+                    <td>Enero</td>
+                    <td>Diseño Web</td>
+                    <td>Completado</td>
+                  </tr>
+                  <tr>
+                    <td>Febrero</td>
+                    <td>Desarrollo</td>
+                    <td>En proceso</td>
+                  </tr>
                 </tbody>
-            </table>
-        </section>
+              </table>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
 
-        <!-- Sección Multimedia -->
-        <section id="multimedia">
-            <h2>Multimedia (Imagen y Video)</h2>
-            <p>Ejemplo de inserción de una imagen:</p>
-            <img src="https://placeholder.com" alt="Imagen de ejemplo" style="max-width:100%; height:auto; border-radius: 4px;">
-            
-            <h3 style="margin-top: 20px;">Audio nativo</h3>
-            <audio controls style="width: 100%;">
-                <source src="audio-ejemplo.mp3" type="audio/mpeg">
-                Tu navegador no soporta el elemento de audio.
+    <!-- Integración: Multimedia de Mi Sitio -->
+    <section id="multimedia">
+      <div class="contenedor">
+        <div class="titulo-seccion">
+          <h2>Multimedia (Imagen y Video)</h2>
+          <p>Ejemplo de inserción de imagen y audio nativo — funcionalidad de Mi Sitio preservada.</p>
+        </div>
+
+        <div class="media-grid">
+          <article class="tarjeta media-card">
+            <h3>Imagen de ejemplo</h3>
+            <p style="color:var(--texto-suave);margin:8px 0 14px">Imagen responsive con borde adaptado:</p>
+            <img src="https://placeholder.com" alt="Imagen de ejemplo" />
+          </article>
+
+          <article class="tarjeta media-card">
+            <h3>Audio nativo</h3>
+            <p style="color:var(--texto-suave);margin:8px 0 14px">Reproductor HTML5 preservado:</p>
+            <audio controls>
+              <source src="audio-ejemplo.mp3" type="audio/mpeg">
+              Tu navegador no soporta el elemento de audio.
             </audio>
-        </section>
+            <p style="color:var(--texto-suave);font-size:0.85rem;margin-top:10px">Archivo: <code>audio-ejemplo.mp3</code></p>
+          </article>
+        </div>
+      </div>
+    </section>
 
-        <!-- Sección de Formulario -->
-        <section id="contacto">
-            <h2>Formulario de Contacto</h2>
-            <form action="#" method="POST">
-                <div>
-                    <label for="nombre">Nombre:</label>
-                    <input type="text" id="nombre" name="nombre" required placeholder="Escribe tu nombre">
-                </div>
-                <div>
-                    <label for="email">Correo Electrónico:</label>
-                    <input type="email" id="email" name="email" required placeholder="correo@ejemplo.com">
-                </div>
-                <div>
-                    <label for="opcion">Elige una opción:</label>
-                    <select id="opcion" name="opcion">
-                        <option value="duda">Tengo una duda</option>
-                        <option value="sugerencia">Sugerencia</option>
-                    </select>
-                </div>
-                <div>
-                    <label for="mensaje">Mensaje:</label>
-                    <textarea id="mensaje" name="mensaje" rows="4" placeholder="Escribe tu mensaje aquí..."></textarea>
-                </div>
-                <button type="submit">Enviar formulario</button>
-            </form>
-        </section>
-    </main>
+    <section id="nosotros">
+      <div class="contenedor">
+        <div class="estadisticas">
+          <div class="estadistica">
+            <strong>8+</strong>
+            <span>Años de experiencia</span>
+          </div>
 
-    <!-- Pie de página -->
-    <footer>
-        <p>&copy; 2026 Mi Sitio Web. Todos los derechos reservados.</p>
-    </footer>
+          <div class="estadistica">
+            <strong>120</strong>
+            <span>Proyectos realizados</span>
+          </div>
+
+          <div class="estadistica">
+            <strong>34</strong>
+            <span>Marcas impulsadas</span>
+          </div>
+
+          <div class="estadistica">
+            <strong>98%</strong>
+            <span>Clientes satisfechos</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="precios">
+      <div class="contenedor">
+        <div class="titulo-seccion">
+          <h2>Planes sencillos y transparentes.</h2>
+          <p>Elige el punto de partida que mejor se adapte a tu proyecto.</p>
+        </div>
+
+        <div class="precios">
+          <article class="tarjeta precio">
+            <h3>Inicial</h3>
+            <div class="cantidad">$299 <small>/ proyecto</small></div>
+
+            <ul class="lista">
+              <li>Landing page</li>
+              <li>Diseño responsive</li>
+              <li>Entrega en 7 días</li>
+            </ul>
+
+            <a href="#contacto" class="boton secundario">Elegir plan</a>
+          </article>
+
+          <article class="tarjeta precio destacado">
+            <span class="popular">Más elegido</span>
+            <h3>Profesional</h3>
+            <div class="cantidad">$799 <small>/ proyecto</small></div>
+
+            <ul class="lista">
+              <li>Sitio web completo</li>
+              <li>Diseño personalizado</li>
+              <li>Animaciones modernas</li>
+              <li>Soporte durante 30 días</li>
+            </ul>
+
+            <a href="#contacto" class="boton">Elegir plan</a>
+          </article>
+
+          <article class="tarjeta precio">
+            <h3>Premium</h3>
+            <div class="cantidad">$1.499 <small>/ proyecto</small></div>
+
+            <ul class="lista">
+              <li>Producto digital avanzado</li>
+              <li>Panel de administración</li>
+              <li>Integraciones externas</li>
+              <li>Soporte prioritario</li>
+            </ul>
+
+            <a href="#contacto" class="boton secundario">Elegir plan</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Integración: Contacto fusionado (sin duplicados) -->
+    <section id="contacto">
+      <div class="contenedor">
+        <div class="contacto">
+          <div class="contacto-info">
+            <span class="etiqueta">Hablemos</span>
+            <h2>¿Tienes una idea?</h2>
+            <p>
+              Cuéntanos qué tienes en mente y te ayudaremos a convertirlo
+              en algo extraordinario. Formulario unificado con todas las funcionalidades.
+            </p>
+
+            <div class="dato-contacto">
+              <strong>Email</strong>
+              hola@nebula.studio
+            </div>
+
+            <div class="dato-contacto">
+              <strong>Horario</strong>
+              Lunes a viernes, 9:00–18:00
+            </div>
+
+            <div class="dato-contacto">
+              <strong>Recursos</strong>
+              <a href="https://developer.mozilla.org/es/docs/Learn_web_development/Core/Structuring_content/Headings_and_paragraphs" target="_blank">Documentación MDN</a>
+            </div>
+          </div>
+
+          <form id="formulario" action="#" method="POST">
+            <div class="campo">
+              <label for="nombre">Tu nombre</label>
+              <input id="nombre" name="nombre" type="text" placeholder="Escribe tu nombre" required />
+            </div>
+
+            <div class="campo">
+              <label for="email">Tu email</label>
+              <input id="email" name="email" type="email" placeholder="correo@ejemplo.com" required />
+            </div>
+
+            <div class="campo">
+              <label for="opcion">Elige una opción</label>
+              <select id="opcion" name="opcion">
+                <option value="duda">Tengo una duda</option>
+                <option value="sugerencia">Sugerencia</option>
+                <option value="proyecto">Quiero cotizar un proyecto</option>
+              </select>
+            </div>
+
+            <div class="campo">
+              <label for="mensaje">Cuéntanos tu idea</label>
+              <textarea id="mensaje" name="mensaje" rows="5" placeholder="Me gustaría crear..." required></textarea>
+            </div>
+
+            <button class="boton" type="submit">Enviar mensaje →</button>
+            <p class="mensaje" id="mensajeExito">
+              ¡Mensaje enviado correctamente!
+            </p>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="contenedor">
+      © 2026 Nébula Studio · Mi Sitio Web. Todos los derechos reservados. Hecho con creatividad y código.
+    </div>
+  </footer>
+
+  <script>
+    const botonMenu = document.getElementById("botonMenu");
+    const menu = document.getElementById("menu");
+    const formulario = document.getElementById("formulario");
+    const mensajeExito = document.getElementById("mensajeExito");
+
+    botonMenu.addEventListener("click", () => {
+      menu.classList.toggle("activo");
+      botonMenu.textContent = menu.classList.contains("activo") ? "✕" : "☰";
+    });
+
+    document.querySelectorAll(".menu a").forEach(enlace => {
+      enlace.addEventListener("click", () => {
+        menu.classList.remove("activo");
+        botonMenu.textContent = "☰";
+      });
+    });
+
+    formulario.addEventListener("submit", evento => {
+      evento.preventDefault();
+      mensajeExito.style.display = "block";
+      formulario.reset();
+
+      setTimeout(() => {
+        mensajeExito.style.display = "none";
+      }, 4000);
+    });
+  </script>
 
 </body>
 </html>
