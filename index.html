@@ -623,6 +623,195 @@
       color: #86efac;
     }
 
+    /* Modal Login - visual glassmorphism */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 2000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: rgba(5, 8, 20, 0.72);
+      backdrop-filter: blur(10px);
+      opacity: 0;
+      transition: opacity 0.28s ease;
+    }
+
+    .modal-overlay.activo {
+      display: flex;
+      opacity: 1;
+    }
+
+    .modal {
+      position: relative;
+      width: min(440px, 100%);
+      padding: 32px;
+      border: 1px solid var(--borde);
+      border-radius: 22px;
+      background: linear-gradient(145deg, rgba(26, 33, 64, 0.96), rgba(15, 20, 42, 0.98));
+      box-shadow: 0 25px 80px rgba(0,0,0,0.45), 0 0 0 1px rgba(139,92,246,0.15) inset;
+      transform: translateY(14px) scale(0.98);
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      overflow: hidden;
+    }
+
+    .modal::before {
+      content: "";
+      position: absolute;
+      top: -60px;
+      right: -60px;
+      width: 180px;
+      height: 180px;
+      background: radial-gradient(circle, rgba(139,92,246,0.22), transparent 70%);
+      pointer-events: none;
+    }
+
+    .modal-overlay.activo .modal {
+      transform: translateY(0) scale(1);
+    }
+
+    .modal-cerrar {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      width: 36px;
+      height: 36px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--borde);
+      border-radius: 10px;
+      background: rgba(255,255,255,0.06);
+      color: var(--texto-suave);
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .modal-cerrar:hover {
+      background: rgba(255,255,255,0.12);
+      color: white;
+      transform: rotate(90deg);
+    }
+
+    .modal-header {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .modal-icono {
+      width: 56px;
+      height: 56px;
+      margin: 0 auto 14px;
+      display: grid;
+      place-items: center;
+      border-radius: 16px;
+      background: linear-gradient(135deg, var(--primario), var(--secundario));
+      box-shadow: 0 8px 25px rgba(139,92,246,0.35);
+      font-size: 1.5rem;
+    }
+
+    .modal-header h2 {
+      font-size: 1.5rem;
+      letter-spacing: -0.8px;
+      margin-bottom: 6px;
+    }
+
+    .modal-header p {
+      color: var(--texto-suave);
+      font-size: 0.9rem;
+    }
+
+    .login-form .campo {
+      margin-bottom: 14px;
+    }
+
+    .campo-fila {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin: 10px 0 18px;
+      font-size: 0.85rem;
+    }
+
+    .checkbox {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      color: var(--texto-suave);
+      cursor: pointer;
+    }
+
+    .checkbox input {
+      width: 16px;
+      height: 16px;
+      accent-color: var(--primario);
+    }
+
+    .link-suave {
+      color: #a78bfa;
+      font-size: 0.85rem;
+      transition: 0.2s;
+    }
+
+    .link-suave:hover {
+      color: #c4b5fd;
+      text-decoration: underline;
+    }
+
+    .login-error {
+      display: none;
+      margin-bottom: 14px;
+      padding: 10px 12px;
+      border-radius: 10px;
+      background: rgba(251, 113, 133, 0.12);
+      border: 1px solid rgba(251, 113, 133, 0.3);
+      color: #fda4af;
+      font-size: 0.85rem;
+    }
+
+    .login-exito {
+      display: none;
+      margin-bottom: 14px;
+      padding: 10px 12px;
+      border-radius: 10px;
+      background: rgba(34, 197, 94, 0.12);
+      border: 1px solid rgba(34, 197, 94, 0.3);
+      color: #86efac;
+      font-size: 0.85rem;
+      text-align: center;
+    }
+
+    .btn-login {
+      width: 100%;
+      padding: 13px;
+      font-size: 0.95rem;
+    }
+
+    .modal-footer {
+      margin-top: 18px;
+      text-align: center;
+      color: var(--texto-suave);
+      font-size: 0.85rem;
+    }
+
+    .user-badge {
+      display: none;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 12px;
+      border: 1px solid rgba(34,197,94,0.3);
+      border-radius: 100px;
+      background: rgba(34,197,94,0.12);
+      color: #86efac;
+      font-size: 0.82rem;
+      font-weight: 600;
+    }
+
+    .user-badge.activo {
+      display: inline-flex;
+    }
+
     footer {
       padding: 30px 0;
       border-top: 1px solid var(--borde);
@@ -718,7 +907,8 @@
         <a href="#nosotros">Nosotros</a>
         <a href="#precios">Precios</a>
         <a href="#contacto">Contacto</a>
-        <a href="#contacto" class="boton">Empezar</a>
+        <button class="boton" id="btnEmpezar">Empezar</button>
+        <span class="user-badge" id="userBadge">● Sesión iniciada</span>
       </nav>
 
       <button class="menu-movil" id="botonMenu" aria-label="Abrir menú">☰</button>
@@ -1051,6 +1241,47 @@
     </section>
   </main>
 
+  <!-- Modal Login (botón Empezar) -->
+  <div class="modal-overlay" id="modalLogin" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="loginTitulo">
+      <button class="modal-cerrar" id="cerrarModal" aria-label="Cerrar">✕</button>
+
+      <div class="modal-header">
+        <div class="modal-icono">✦</div>
+        <h2 id="loginTitulo">Bienvenido de vuelta</h2>
+        <p>Inicia sesión para continuar tu proyecto con Nébula</p>
+      </div>
+
+      <div class="login-error" id="loginError">Correo o contraseña incorrectos.</div>
+      <div class="login-exito" id="loginExito">¡Sesión iniciada correctamente! Redirigiendo…</div>
+
+      <form class="login-form" id="loginForm" novalidate>
+        <div class="campo">
+          <label for="loginEmail">Correo electrónico</label>
+          <input id="loginEmail" name="loginEmail" type="email" placeholder="tu@ejemplo.com" required autocomplete="email" />
+        </div>
+
+        <div class="campo">
+          <label for="loginPass">Contraseña</label>
+          <input id="loginPass" name="loginPass" type="password" placeholder="••••••••" required autocomplete="current-password" />
+        </div>
+
+        <div class="campo-fila">
+          <label class="checkbox"><input type="checkbox" id="recordarme" /> Recordarme</label>
+          <a href="#" class="link-suave" id="linkOlvido">¿Olvidaste tu contraseña?</a>
+        </div>
+
+        <button type="submit" class="boton btn-login" id="btnLogin">Iniciar sesión →</button>
+
+        <p style="text-align:center; margin-top:12px; font-size:0.82rem; color:var(--texto-suave)">Demo: usa <strong style="color:white">demo@nebula.studio / demo123</strong> o cualquier email válido + contraseña ≥6 caracteres</p>
+      </form>
+
+      <div class="modal-footer">
+        ¿No tienes cuenta? <a href="#" class="link-suave" id="linkRegistro">Crea una cuenta</a>
+      </div>
+    </div>
+  </div>
+
   <footer>
     <div class="contenedor">
       © 2026 Nébula Studio · Mi Sitio Web. Todos los derechos reservados. Hecho con creatividad y código.
@@ -1062,6 +1293,131 @@
     const menu = document.getElementById("menu");
     const formulario = document.getElementById("formulario");
     const mensajeExito = document.getElementById("mensajeExito");
+
+    // --- Login Modal (botón Empezar) ---
+    const btnEmpezar = document.getElementById("btnEmpezar");
+    const modalLogin = document.getElementById("modalLogin");
+    const cerrarModal = document.getElementById("cerrarModal");
+    const loginForm = document.getElementById("loginForm");
+    const loginEmail = document.getElementById("loginEmail");
+    const loginPass = document.getElementById("loginPass");
+    const loginError = document.getElementById("loginError");
+    const loginExito = document.getElementById("loginExito");
+    const userBadge = document.getElementById("userBadge");
+    const btnLogin = document.getElementById("btnLogin");
+
+    function abrirModal() {
+      modalLogin.classList.add("activo");
+      modalLogin.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+      setTimeout(() => loginEmail.focus(), 80);
+    }
+
+    function cerrarModalFn() {
+      modalLogin.classList.remove("activo");
+      modalLogin.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+      loginError.style.display = "none";
+    }
+
+    // estado sesión visual
+    function actualizarBadge(email) {
+      if (email) {
+        userBadge.textContent = "● " + email.split("@")[0];
+        userBadge.classList.add("activo");
+        btnEmpezar.textContent = "Mi cuenta";
+      } else {
+        userBadge.classList.remove("activo");
+        btnEmpezar.textContent = "Empezar";
+      }
+    }
+
+    const sesionGuardada = localStorage.getItem("nebula_user");
+    if (sesionGuardada) actualizarBadge(sesionGuardada);
+
+    btnEmpezar.addEventListener("click", () => {
+      if (localStorage.getItem("nebula_user")) {
+        // si ya hay sesión, cerrar sesión
+        if (confirm("Sesión iniciada como " + localStorage.getItem("nebula_user") + ". ¿Cerrar sesión?")) {
+          localStorage.removeItem("nebula_user");
+          actualizarBadge(null);
+        }
+        return;
+      }
+      abrirModal();
+    });
+
+    cerrarModal.addEventListener("click", cerrarModalFn);
+    modalLogin.addEventListener("click", (e) => {
+      if (e.target === modalLogin) cerrarModalFn();
+    });
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && modalLogin.classList.contains("activo")) cerrarModalFn();
+    });
+
+    document.getElementById("linkOlvido").addEventListener("click", (e) => {
+      e.preventDefault();
+      alert("Demo: contacta a hola@nebula.studio para recuperar tu contraseña.");
+    });
+    document.getElementById("linkRegistro").addEventListener("click", (e) => {
+      e.preventDefault();
+      alert("Demo: el registro está deshabilitado en esta demo. Usa demo@nebula.studio / demo123");
+    });
+
+    loginForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      loginError.style.display = "none";
+      loginExito.style.display = "none";
+
+      const email = loginEmail.value.trim();
+      const pass = loginPass.value;
+      const emailValido = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+      const passValido = pass.length >= 6;
+
+      // demo acepta cualquier email válido + pass >=6, o credencial específica
+      const esDemo = email === "demo@nebula.studio" && pass === "demo123";
+
+      if (!emailValido) {
+        loginError.textContent = "Ingresa un correo válido.";
+        loginError.style.display = "block";
+        return;
+      }
+      if (!passValido) {
+        loginError.textContent = "La contraseña debe tener al menos 6 caracteres.";
+        loginError.style.display = "block";
+        return;
+      }
+
+      // simulación login
+      btnLogin.textContent = "Verificando…";
+      btnLogin.disabled = true;
+
+      setTimeout(() => {
+        btnLogin.textContent = "Iniciar sesión →";
+        btnLogin.disabled = false;
+
+        if (esDemo || (emailValido && passValido)) {
+          if (document.getElementById("recordarme").checked) {
+            localStorage.setItem("nebula_user", email);
+          } else {
+            sessionStorage.setItem("nebula_user", email);
+            localStorage.setItem("nebula_user", email);
+          }
+          loginExito.style.display = "block";
+          actualizarBadge(email);
+          setTimeout(() => {
+            cerrarModalFn();
+            loginExito.style.display = "none";
+            loginForm.reset();
+            // feedback visual + scroll a contacto
+            document.getElementById("contacto").scrollIntoView({ behavior: "smooth" });
+          }, 900);
+        } else {
+          loginError.textContent = "Correo o contraseña incorrectos.";
+          loginError.style.display = "block";
+        }
+      }, 700);
+    });
 
     botonMenu.addEventListener("click", () => {
       menu.classList.toggle("activo");
